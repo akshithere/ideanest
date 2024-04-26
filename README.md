@@ -1,6 +1,6 @@
 # IdeaNest
 
-IdeaNest is a web application designed to bridge the gap between innovators with great ideas, skilled individuals, and potential investors. Whether you have a groundbreaking concept, a unique skillset, or financial resources to invest, IdeaNest provides a platform for collaboration, networking, and turning ideas into reality.
+IdeaNest is a web application designed to bridge the gap between innovators with great ideas, skilled individuals, and potential investors. Whether you have a groundbreaking concept, a unique skillset, or financial resources to invest, IdeaNest provides a platform for collaboration, networking, and turning ideas into reality and many more.
 
 ## Features
 
