@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 // import Payments from "../Payments/Payments";
 
 export default function Subscription() {
+    const host = import.meta.env.backendurl
     const [selectedSubscription, setSelectedSubscription] = useState(1);
     const navigate = useNavigate();
 

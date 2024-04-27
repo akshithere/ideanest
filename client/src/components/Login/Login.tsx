@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
+    const host = import.meta.env.backendurl
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -12,7 +13,7 @@ export default function Login() {
         try {
             console.log(email)
             console.log(password)
-            const response = await axios.post("http://localhost:3000/auth/login", {
+            const response = await axios.post(`${host}/auth/login`, {
                 email: email,
                 password: password
             });

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Payments(props: any) {
+    const host = import.meta.env.backendurl
     const navigate = useNavigate()
     const id = props.id; // Accessing the id from props
 
@@ -20,7 +21,7 @@ export default function Payments(props: any) {
     async function onClickHandler() {
         try {
             console.log("The id received is: " + id);
-            const response = await axios.post("http://localhost:3000/paymenthandler", subscriptionData);
+            const response = await axios.post(`${host}/paymenthandler`, subscriptionData);
             console.log("Response received is " + JSON.stringify(response));
             console.log("Response.data received is " + JSON.stringify(response.data));
             if (response.data.url) {

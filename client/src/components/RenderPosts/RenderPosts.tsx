@@ -9,6 +9,7 @@ interface Post {
 }
 
 export default function RenderPosts() {
+    const host = import.meta.env.backendurl
     const navigate = useNavigate()
     const [posts, setPosts] = useState<Post[]>([]);
     const [skip, setSkip] = useState(0);
@@ -21,7 +22,7 @@ export default function RenderPosts() {
     }, []);
 
     const fetchPosts = () => {
-        axios.get(`http://localhost:3000/post/posts/cofounders?limit=${limit}&skip=${skip}`)
+        axios.get(`${host}/post/posts/cofounders?limit=${limit}&skip=${skip}`)
             .then((response) => {
                 setPosts((prevPosts) => [...prevPosts, ...response.data.posts]);
             })

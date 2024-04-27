@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 connectDB();
 
-const authRouter = require("./routes/auth.route");
+const authRouter = require("/routes/auth.route");
 const userRouter = require("./routes/user.route");
 const postRouter = require("./routes/post.route");
 

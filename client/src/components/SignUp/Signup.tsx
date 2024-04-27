@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 export default function Signup() {
+const host = import.meta.env.backendurl
 const [username,setUsername] = useState("")
 const [email,setEmail] = useState("")
 const [password,setPassword] = useState("")
@@ -15,7 +16,7 @@ async function onClickHandler(e: any) {
 
     e.preventDefault();
     try {
-        const response = await axios.post("http://localhost:3000/auth/register", {
+        const response = await axios.post(`${host}/auth/register`, {
             username: username,
             email: email,
             password: password,
