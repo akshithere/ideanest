@@ -9,6 +9,20 @@ import { useSelector } from "react-redux";
 
 const host = import.meta.env.VITE_BACKENDURL;
 
+interface User {
+    _id: string;
+    typeOfUser: string;
+    username: string;
+    email: string;
+    password: string;
+    posts: string[]; // Assuming posts are represented by an array of string IDs
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+}
+
+type UserResponse = User[];
+
 export interface authInfo{
     uid?: number,
     fullName?: string,
@@ -30,12 +44,15 @@ export const authApi = createApi({
     baseQuery:fetchBaseQuery({
         baseUrl:`${host}`,
         prepareHeaders(headers,{getState}){
-           if((getState() as RootState).auth.isAuthenticated){
-           const token:any = useSelector((state:RootState)=>state.auth.token);
-            headers.set(`token`,token)
+           
+          const token:any = localStorage.getItem('token')
+          console.log("The token prepareHeaders is about to send to every subsequent request is: ", token)
+            if(token){
+                headers.set(`token`,token)
+            }
            }
         }
-    }),
+    ),
     tagTypes:['test','signup','login'],
     
     endpoints:(builder)=>({
@@ -74,7 +91,7 @@ export const authApi = createApi({
             })
             
            }),
-           getUsers: builder.query({
+           getUsers: builder.query<UserResponse,void>({
             query: ()=>`/user/users`
         })
 

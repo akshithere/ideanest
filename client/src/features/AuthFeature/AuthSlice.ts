@@ -16,7 +16,7 @@ export const authSlice = createSlice({
             if(action.payload.data.isAuthenticated == true){
                  state.isAuthenticated = true
                  console.log("The token recieved by the loginMutation: ",action.payload.data.token)
-                 localStorage.setItem('loginToken',action.payload.data.token)
+                 localStorage.setItem('token',action.payload.data.token)
                 //  state.token = action.payload.data.
             }
 
@@ -25,7 +25,7 @@ export const authSlice = createSlice({
             if(action.payload.data.token){
                 state.isAuthenticated = true
                 state.token = action.payload.data.token
-                localStorage.setItem('signUpToken',state.token)
+                localStorage.setItem('token',state.token)
             }
         }
     }
