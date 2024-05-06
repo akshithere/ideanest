@@ -2,6 +2,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 import type { RootState } from "../../hooks/store";
+import { useSelector } from "react-redux";
 
 
 
@@ -30,7 +31,8 @@ export const authApi = createApi({
         baseUrl:`${host}`,
         prepareHeaders(headers,{getState}){
            if((getState() as RootState).auth.isAuthenticated){
-            headers.set(`isAuthenticated`,`true`)
+           const token:any = useSelector((state:RootState)=>state.auth.token);
+            headers.set(`token`,token)
            }
         }
     }),
@@ -70,7 +72,12 @@ export const authApi = createApi({
                 method:'POST',
                 body:loginData
             })
-           })
+            
+           }),
+           getUsers: builder.query({
+            query: ()=>`/user/users`
+        })
+
            
 
     }),
@@ -78,4 +85,4 @@ export const authApi = createApi({
 
 })
 
-export const {useSignupUserMutation,useLoginUserMutation,useAuthTestQuery} = authApi
+export const {useSignupUserMutation,useLoginUserMutation,useAuthTestQuery,useGetUsersQuery} = authApi
