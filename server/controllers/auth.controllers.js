@@ -52,7 +52,7 @@ const loginController = async (req, res, next) => {
         }
 
         // Send user data and token in response
-        res.status(200).json({ user,isAuthenticated:true,token:token },token);
+        res.status(200).json({ user,isAuthenticated:true,token:token });
     } catch (error) {
         next(error);
     }
