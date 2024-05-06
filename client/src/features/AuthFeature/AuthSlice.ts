@@ -11,10 +11,12 @@ export const authSlice = createSlice({
     name:'AuthSlice',
     initialState,
     reducers:{
-        setCredentials(state,action:PayloadAction<{data:{user:any,isAuthenticated:boolean}}>){
+        setCredentials(state,action:PayloadAction<{data:{user:any,isAuthenticated:boolean,token:string}}>){
             console.log("i'm inside setCredentials reducer of the authSlice")
             if(action.payload.data.isAuthenticated == true){
                  state.isAuthenticated = true
+                 console.log("The token recieved by the loginMutation: ",action.payload.data.token)
+                 localStorage.setItem('loginToken',action.payload.data.token)
                 //  state.token = action.payload.data.
             }
 

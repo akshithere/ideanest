@@ -6,7 +6,7 @@ import type { RootState } from "../../hooks/store";
 
 
 
-const host = 'http://localhost:3000';
+const host = import.meta.env.VITE_BACKENDURL;
 
 export interface authInfo{
     uid?: number,
@@ -56,6 +56,10 @@ export const authApi = createApi({
                     method:'POST',
                     body:userData
                 })
+            },
+            transformResponse:(data:any)=>{
+                console.log("The response was from onrender server")
+                return data;
             },
             invalidatesTags:['test'],
             

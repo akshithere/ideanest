@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import { useLoginUserMutation } from "../../../app/services/AuthApi";
 import {authSlice, setCredentials} from '../AuthSlice'
 import { useDispatch } from "react-redux";
 import type { RootState } from "../../../hooks/store";
 export default function Login() {
-    
+    const style = 'background-color: darkblue; color: white; font-style: italic; border: 5px solid hotpink; font-size: 2em;'
+     console.log("%cHooray", style);
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -24,6 +25,7 @@ export default function Login() {
                 email: email,
                 password: password
             };
+            console.log("data sent to the server is: ",loginData)
             const res = await loginUser(loginData)
             
             
