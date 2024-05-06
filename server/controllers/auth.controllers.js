@@ -30,7 +30,7 @@ const registerController = async (req, res, next) => {
         // Generate JWT token
         const token = jwt.sign({ email: newUser.email, _id: newUser._id }, jwt_secret);
 
-        res.status(200).json({ token });
+        res.status(200).json({ token,isAuthenticated:true });
     } catch (error) {
         next(error);
     }
@@ -41,15 +41,15 @@ const loginController = async (req, res, next) => {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ error: "User Not Found! Please Register" });
+            return res.status(404).json({ error: "User Not Found! Please Register", });
         }
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
-            return res.status(401).json({ error: "Wrong Password!" });
+            return res.status(401).json({ error: "Wrong Password!",isAuthenticated:false });
         }
 
         // Send user data and token in response
-        res.status(200).json({ user });
+        res.status(200).json({ user,isAuthenticated:true });
     } catch (error) {
         next(error);
     }

@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { RootState } from "../../hooks/store";
+
 
 interface Post {
     _id: string;
@@ -9,7 +12,9 @@ interface Post {
 }
 
 export default function RenderPosts() {
-    const host = import.meta.env.backendurl
+    const isAuthenticated = useSelector((state:RootState)=>state.auth.isAuthenticated)
+    const host = 'http://localhost:3000'
+    console.log('host is: ', host)
     const navigate = useNavigate()
     const [posts, setPosts] = useState<Post[]>([]);
     const [skip, setSkip] = useState(0);
@@ -48,30 +53,8 @@ export default function RenderPosts() {
         fetchPosts();
     }, [skip]);
 
-    // const handleCreatePost = (mediaSelected: boolean) => {
-    //     const userId = ""; // Set the user ID
-    //     const caption = ""; // Get the caption value from input fields
-    //     const description = ""; // Get the description value from input fields
-    //     const link = ""; // Get the link if media is selected
+    if(isAuthenticated == false)return <div className="text-white text-6xl font-primaryFont">Nigga You are Unauthenticated</div>
 
-    //     const postData = {
-    //         userId,
-    //         caption,
-    //         description,
-    //         ...(mediaSelected && { link }) // Add link to postData if media is selected
-    //     };
-
-    //     const route = mediaSelected ? "/posts/with-media" : "/posts";
-
-    //     axios.post(`http://localhost:3000${route}`, postData)
-    //         .then((response) => {
-    //             console.log("Post created successfully:", response.data.post);
-    //             // Optionally, you can update state with the newly created post
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error creating post:", error);
-    //         });
-    // };
 
     return (
         <div className="mt-5 flex justify-center items-center bg-bgblue ">

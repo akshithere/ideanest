@@ -21,12 +21,13 @@ app.use(cookieParser());
 
 connectDB();
 
-const authRouter = require("/routes/auth.route");
+const authRouter = require("./routes/auth.route");
 const userRouter = require("./routes/user.route");
 const postRouter = require("./routes/post.route");
 
 app.use("/user", verifyToken, userRouter);
 app.use("/post", postRouter);
+app.use("/auth", authRouter);
 
 connectDB();
 
@@ -36,7 +37,7 @@ const storeItems = new Map([
   [3, { priceInCents: 30000, name: "Annual Subscription to unlimited ideas" }],
 ]);
 
-app.use("/auth", authRouter);
+
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");

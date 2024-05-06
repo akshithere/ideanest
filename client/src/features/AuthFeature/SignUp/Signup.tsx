@@ -1,52 +1,55 @@
-import axios from "axios";
+// ab dispatch function se data reducer tak pahunchana hai store ke
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { authInfo } from "../../../app/services/AuthApi";
+import { useSignupUserMutation } from "../../../app/services/AuthApi";
+import { useAuthTestQuery } from "../../../app/services/AuthApi";
+
+
  
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setToken } from "../AuthSlice";
+
 
 export default function Signup() {
-const host = import.meta.env.backendurl
+
+
 const [username,setUsername] = useState("")
 const [email,setEmail] = useState("")
 const [password,setPassword] = useState("")
 const [typeOfUser,setType] = useState("user")
 const navigate = useNavigate()
-
+const [signupUser, { isLoading, isError, error }] = useSignupUserMutation();
+const {data} = useAuthTestQuery()
+const dispatch = useDispatch()
+if(isLoading)return <div>Loading my nigga</div>
+if(isError)return <div>Error my nigga</div>
 async function onClickHandler(e: any) {
 
     e.preventDefault();
-    try {
-        const response = await axios.post(`${host}/auth/register`, {
-            username: username,
-            email: email,
-            password: password,
-            typeOfUser: typeOfUser
-        });
-
-        // Assuming server returns some data with a token
-        const token = response.data.token;
-        console.log("The token recieved is: " + token)
-
-        // Save the token in local storage
-        localStorage.setItem("token", token);
-
-        if (typeOfUser === "investor") {
-            navigate("/investorfeed");
-        } else {
-            localStorage.setItem("showChat", "true")
-            window.location.href = "/userfeed"
-        }
-    } catch (error) {
-        // Handle error, if any
-        console.error("Error during signup:", error);
+    const userData: authInfo = {
+        username,
+        email,
+        password,
+        typeOfUser
     }
+    console.log("The data i'm trying to send to server is: ", userData)
+    
+   const res:ResultType<typeof signupUser> = await signupUser(userData)
+   
+   console.log("data.token after signing up user is: ",res.data.token)
+      dispatch(setToken(res))
+   navigate('/')
 }
 
     return (
+        
         <div className="bg-cover bg-center h-screen flex flex-row " >
             <div className="w-1/2 h-full flex justify-center items-center flex-col">
                 <h1 className="text-4xl text-white font-primaryFont">Hello</h1>
                 <h1 className="text-2xl text-white font-primaryFont">Already Have an account</h1>
+                <h1 className="text-white font-primaryFont text-6xl ">{data}</h1>
                 <button onClick={(e)=>{
                         e.preventDefault()
                         navigate("/login")
@@ -147,9 +150,9 @@ async function onClickHandler(e: any) {
 
             <div className="mt-6">
                 <button onClick={onClickHandler} className="hover:scale-110 transition-all w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize duration-300 transform bg-bgPrimary rounded-2xl hover:bg-bgPrimaryBg focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                <NavLink to="/">
+                {/* <NavLink to="/"> */}
                         Signup
-                    </NavLink>
+                    {/* </NavLink> */}
                 </button>
 
                 <div className="mt-6 text-center ">

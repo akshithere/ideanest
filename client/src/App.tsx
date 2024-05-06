@@ -6,10 +6,11 @@ import Profile from './components/Profile';
 // import Subscription from './components/Subscription/Subscription';
 import ErrorPage from './components/Error/Error';
 import Payments from './components/Payments/Payments';
-import Signup from './components/SignUp/Signup';
-import Login from './components/Login/Login'
+import Signup from './features/AuthFeature/SignUp/Signup';
+import Login from './features/AuthFeature/Login/Login'
 import Success from './components/SuccessPage/Succcess';
 import UserFeed from './components/UserFeed/UserFeed';
+
 // import Welcome from './components/Welcome.jsx'
 // import SubscriptionPage from './components/Subscription/SubscriptionPage';
 
@@ -25,12 +26,14 @@ import ProfileCard from "./components/ProfileCard/Profile";
 import SubscriptionPage from "./components/Subscription/SubscriptionPage";
 import Lobby from './screens/Lobby';
 import Room from './screens/Room'
+import Test from './components/Test/Test';
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
 
     errorElement: <ErrorPage />,
+    
     
     children:[
       { index: true, Component: Home },
@@ -46,7 +49,8 @@ const router = createBrowserRouter([
       { path: "/mentorship", Component: ProfileCard},
       { path: "/conference", Component: Lobby },
       { path: "/Room/:roomId", Component: Room },
-
+      {path: "/test", Component: Test}
+      
     ],
   },
 

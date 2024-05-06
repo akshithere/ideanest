@@ -1,35 +1,51 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { useLoginUserMutation } from "../../../app/services/AuthApi";
+import {authSlice, setCredentials} from '../AuthSlice'
+import { useDispatch } from "react-redux";
+import type { RootState } from "../../../hooks/store";
 export default function Login() {
-    const host = import.meta.env.backendurl
+    
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginUser] = useLoginUserMutation()
+
 
     async function onClickHandler(e:any) {
         e.preventDefault();
+        
         try {
             console.log(email)
             console.log(password)
-            const response = await axios.post(`${host}/auth/login`, {
+            const loginData =  {
                 email: email,
                 password: password
-            });
+            };
+            const res = await loginUser(loginData)
             
-            const user = response.data.user;
-            const typeOfUser = user.typeOfUser;
+            
+            console.log("res is: ",res)
+            dispatch(setCredentials(res))
+
+
+            
+            
+            
           
             // Navigate based on the typeOfUser
-            if (typeOfUser === "investor") {
-                navigate("/investorfeed");
-            } else if (typeOfUser === "user") {
-                navigate("/userfeed");
-            } else {
-                // Handle invalid typeOfUser
-            }
-        } catch (error) {
+        //     if (typeOfUser === "investor") {
+        //         navigate("/investorfeed");
+        //     } else if (typeOfUser === "user") {
+        //         navigate("/userfeed");
+        //     } else {
+        //         // Handle invalid typeOfUser
+        //     }
+        // 
+        navigate('/')
+    } catch(error) {
             console.error("Error during login:", error);
             // Handle login error
         }
