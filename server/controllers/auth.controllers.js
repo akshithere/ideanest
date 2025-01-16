@@ -4,7 +4,7 @@ dotenv.config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const jwt_secret = process.env.SECRET;
-
+// wth is bcrypt doing? what is the route i can hit and what do they expect
 const registerController = async (req, res, next) => {
     try {
         const { username, email, password, typeOfUser } = req.body;
@@ -43,14 +43,15 @@ const loginController = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ error: "User Not Found! Please Register", });
         }
-        console.log("The data sent to jwt.sign in loginController is: ",email,user._id)
-        const token = jwt.sign({email,userId:user._id},jwt_secret)
-        console.log("The login token is: ",token)
+
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
             return res.status(401).json({ error: "Wrong Password!",isAuthenticated:false});
         }
-
+        
+        console.log("The data sent to jwt.sign in loginController is: ",email,user._id)
+        const token = jwt.sign({email,userId:user._id},jwt_secret)
+        console.log("The login token is: ",token)
         // Send user data and token in response
         res.status(200).json({ user,isAuthenticated:true,token:token });
     } catch (error) {

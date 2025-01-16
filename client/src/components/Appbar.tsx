@@ -9,11 +9,13 @@ export default function Appbar(){
         setShowChat(showChatFromLocalStorage === "true");
     }, []);
     return(
-        <>
-        <div className="flex justify-between items-center py-4 px-6 bg-bgPrimary">
-            <div>
-                <h1 className="font-primaryFont text-4xl text-white font-bold bg-bgPrimaryBg rounded-lg p-1">IdeaMania</h1>
-            </div>
+        //  bg-gradient-to-r from-transparent via-bgPrimary/70 to-transparent backdrop-blur-md shadow-lg z-50
+        <nav className="fixed top-2 left-4 right-4 w-auto">
+
+        <div className="container mx-auto bg-gray-800 bg-opacity-30 bg-clip-padding backdrop-blur-xl rounded-2xl">
+            {/* IdeaNest */}
+                <h1 className="font-primaryFont text-4xl text-white font-bold bg-bgPrimaryBg rounded-lg p-1">IdeaNest</h1>
+            {/* Other Nav Links */}
             <div>
                 <ul className="font-abc text-2xl flex justify-evenly items-center space-x-20">
                 {showChat && (
@@ -71,6 +73,6 @@ export default function Appbar(){
             </div>
 
         </div>
-        </>
+        </nav>
     )
 }

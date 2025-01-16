@@ -12,7 +12,8 @@ dotenv.config();
 
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
+console.log("Port is: \n", port);
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -29,7 +30,7 @@ app.use("/user", verifyToken, userRouter);
 app.use("/post", postRouter);
 app.use("/auth", authRouter);
 
-connectDB();
+
 
 const storeItems = new Map([
   [1, { priceInCents: 10000, name: "Weekly Subscription to unlimited ideas" }],
@@ -78,7 +79,7 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
-const io = new Server(8000, {
+const io = new Server(3010, {
   cors: true,
 });
 

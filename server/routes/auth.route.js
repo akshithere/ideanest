@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+console.log("The router is: ", router);
 const { registerController , loginController , logoutController } = require("../controllers/auth.controllers.js")
 const  testController  = require("../controllers/testController")
 

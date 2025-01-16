@@ -1,3 +1,10 @@
+// check this likes etc thingies
+// no media is getting stored here
+// implement cloudinary uploads with multer
+// use the authentication middlewares
+// get all the api's up and working
+// connect them with the frontend
+
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');

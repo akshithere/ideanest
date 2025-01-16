@@ -1,19 +1,15 @@
 import { Outlet } from 'react-router-dom'
+// basically placeholder for current route's all the children components
 import Appbar from '../components/Appbar'
-
-
-
-
 
 
 
 function RootLayout() {
   return (
 
-    <div className='root scrollbar bg-bgblue selection:text-bgPrimaryBg'>
-    {/* // style={{backgroundImage:"url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFWU4WjzV34XZiunsRoRhAceL4iAvWgaVE_Q&s')"}}> */}
+    <div className="root scrollbar bg-custom-image brightness-90 bg-cover bg-center h-screen w-full h-full selection:text-bgPrimaryBg">
         <Appbar/>        
-        <main className='main '>
+        <main className='main'>
             <Outlet/>
         </main>
     </div>

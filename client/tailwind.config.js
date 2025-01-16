@@ -6,6 +6,9 @@ export default {
   
   theme: {
     extend: {
+      backgroundImage: {
+        'custom-image': "url('https://c4.wallpaperflare.com/wallpaper/216/846/440/mount-fuji-japan-landscape-calm-waters-wallpaper-preview.jpg')",
+      },
       keyframes: {
         'infinite-scroll': {
           from: { transform: 'translateX(0)' },
