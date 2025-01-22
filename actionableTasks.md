@@ -11,6 +11,8 @@ fix the ui
 
 fix the types
 
+add tests
+
 video calling thingy -> why socket error
 
 maybe chat thingy
