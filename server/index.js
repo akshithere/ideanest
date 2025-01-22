@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const verifyToken = require("./middleware/verifyToken.middleware");
@@ -16,9 +15,10 @@ const port = process.env.PORT;
 console.log("Port is: \n", port);
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({extended: false}))
 
 connectDB();
 

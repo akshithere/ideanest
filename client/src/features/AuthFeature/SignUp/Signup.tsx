@@ -21,7 +21,7 @@ const [password,setPassword] = useState("")
 const [typeOfUser,setType] = useState("user")
 const navigate = useNavigate()
 const [signupUser, { isLoading, isError, error }] = useSignupUserMutation();
-const {data} = useAuthTestQuery()
+const {data} = useAuthTestQuery();
 const dispatch = useDispatch()
 if(isLoading)return <div>Loading my nigga</div>
 if(isError)return <div>Error my nigga</div>
@@ -40,6 +40,7 @@ async function onClickHandler(e: any) {
    
    console.log("data.token after signing up user is: ",res.data.token)
       dispatch(setToken(res))
+      // if this is storing the token to the global store than i dont think so its recommended
    navigate('/')
 }
 

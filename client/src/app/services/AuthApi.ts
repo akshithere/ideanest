@@ -46,8 +46,9 @@ export const authApi = createApi({
         prepareHeaders(headers,{getState}){
            
           const token:any = localStorage.getItem('token')
-          console.log("The token prepareHeaders is about to send to every subsequent request is: ", token)
-            if(token){
+
+          if(token){
+                console.log("The token prepareHeaders is about to send to every subsequent request is: ", token);
                 headers.set(`token`,token)
             }
            }

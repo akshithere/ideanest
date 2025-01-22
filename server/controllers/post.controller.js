@@ -1,34 +1,24 @@
 // check this likes etc thingies
-// no media is getting stored here
-// implement cloudinary uploads with multer
+// no media is getting stored here // workin ****************
+// implement cloudinary uploads with multer *************
 // use the authentication middlewares
 // get all the api's up and working
 // connect them with the frontend
 
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const multer = require('multer');
+const fs = require('fs');
 const User = require("../models/user.model");
 const Post = require("../models/post.model");
 
 // Configure Cloudinary
 cloudinary.config({
-  cloud_name: process.env.COULDINARY_CLOUD_NAME,
-  api_key: process.env.COULDINARY_API_KEY,
-  api_secret: process.env.COULDINARY_API_SECERT
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Configure multer to use Cloudinary as storage
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'your_folder_name', // Specify the folder in Cloudinary where you want to upload files
-    allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'mp4'], // Specify the allowed file formats
-    transformation: [{ width: 500, height: 500, crop: 'limit' }] // Optional: Resize images to fit within 500x500 pixels
-  }
-});
-const upload = multer({ storage: storage });
+// multer.middleware should do its job, i am not using the multer-storage-cloudinary package here
 
 const handleError = (res, statusCode, message, error) => {
     return res.status(statusCode).json({ error: { message }, details: error });
@@ -42,6 +32,7 @@ const postNotFound = (res) => {
     return handleError(res, 404, "Post Not Found!!");
 };
 
+// before doing the actual upload to the cloudinary server i want to see if the middleware actually propagate the image as it is supposed to do
 
 const createPostController = async (req, res) => {
     const { userId, caption, description } = req.body;
@@ -67,18 +58,29 @@ const createPostController = async (req, res) => {
 
 
 const createPostWithMediaController = async (req, res) => {
-    const { userId, caption, description, link } = req.body;
-    console.log("link is: " + link)
+    const { userId, caption, description } = req.body;
+    console.log("the req.file is: ", req.file)
     try {
         const user = await User.findById(userId);
-        if (!user) return userNotFound(res);
+        if (!user){
+            fs.unlink();
+            return userNotFound(res);
+        }
+
+        const result = await cloudinary.uploader.upload(req.file.path,{
+            folder: 'ideanest',
+            resource_type: 'auto'
+        })
+
+        console.log("cloudinary result is: ", result);
 
         const newPost = new Post({
             user: userId,
             caption,
             description,
-            link: link
+            link: result.secure_url
         });
+        
         await newPost.save();
         user.posts.push(newPost._id);
         await user.save();
