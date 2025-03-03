@@ -24,8 +24,8 @@ import Working from "./components/WorkingOnItPage/Working";
 import { InvestorFeed } from "./components/InvestorFeed/InvestorFeed";
 import ProfileCard from "./components/ProfileCard/Profile";
 import SubscriptionPage from "./components/Subscription/SubscriptionPage";
-import Lobby from './screens/Lobby';
-import Room from './screens/Room'
+// import Lobby from './screens/Lobby';
+// import Room from './screens/Room'
 import Test from './components/Test/Test';
 const router = createBrowserRouter([
   {
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
       { path: "/userFeed", Component: UserFeed },
       { path: "/investorfeed", Component: InvestorFeed },
       { path: "/mentorship", Component: ProfileCard},
-      { path: "/conference", Component: Lobby },
-      { path: "/Room/:roomId", Component: Room },
+      // { path: "/conference", Component: Lobby },
+      // { path: "/Room/:roomId", Component: Room },
       {path: "/test", Component: Test}
       
     ],
