@@ -14,7 +14,12 @@ const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 const port = process.env.PORT;
 console.log("Port is: \n", port);
 
-app.use(cors());
+app.use(cors({
+  origin: "https://ideanest.akcelify.xyz" || "http://localhost:3000",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json());
 app.use(express.json());
 app.use(cookieParser());
